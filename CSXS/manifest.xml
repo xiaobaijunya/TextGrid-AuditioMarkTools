@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="xiaobaijun.jsxRun" ExtensionBundleVersion="1.0" Version="6.0">
+    <ExtensionList>
+        <Extension Id="xiaobaijun.jsxRun.extension" Version="1.0"/>
+    </ExtensionList>
+    <ExecutionEnvironment>
+        <HostList>
+            <Host Name="AUDT" Version="13.0"/>
+        </HostList>
+        <LocaleList>
+            <Locale Code="All"/>
+        </LocaleList>
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="6.0"/>
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="xiaobaijun.jsxRun.extension">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./index.html</MainPath>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type>Panel</Type>
+                    <Menu>TextGrid-AuditioMarkTools</Menu>
+                    <Geometry>
+                        <Size>
+                            <Height>500</Height>
+                            <Width>500</Width>
+                        </Size>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+</ExtensionManifest>

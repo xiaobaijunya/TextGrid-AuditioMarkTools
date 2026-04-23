@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TextGrid-AuditioMarkTools</title>
+    <script src="./lib/Appearance.js"></script>
+    <script src="./lib/CSInterface.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            color: white;
+        }
+
+        button,input[type="button"]  {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover,input[type="button"] :hover {
+            background: rgb(45, 140, 235);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="info-text">
+        <p>TextGrid-AuditioMarkTools<p>
+            <p>Cue-mark转textgrid</p>
+    </div>
+    <div id="contents"></div>
+</body>
+    <script>
+        // Minimal implementation of CSInterface.js
+        (function () {
+            function CSInterface() {
+                this.evalScript = function (script, callback) {
+                    callback = callback || function () { };
+                    window.__adobe_cep__.evalScript(script, callback);
+                };
+            }
+
+            window.CSInterface = CSInterface;
+        })();
+
+        (function () {
+            'use strict';
+            var csInterface = new CSInterface();
+
+            function callScript(filePath) {
+                var script = 'try { $.evalFile("' + filePath + '"); } catch (e) { alert(e); }';
+                csInterface.evalScript(script);
+            }
+
+            function createButton(scriptPath) {
+                var script = 'var files = Folder("' + scriptPath + '").getFiles("*.jsx");' +
+                    'var fileNames = []; for (var i = 0; i < files.length; i++) { fileNames.push(decodeURI(files[i].name)); }' +
+                    'fileNames.join(",");';
+                csInterface.evalScript(script, function (result) {
+                    var filesArray = result.split(",");
+                    var container = document.getElementById("contents");
+                    container.innerHTML = ""; // 清空内容
+
+                    filesArray.forEach(function (file) {
+                        if (file.indexOf('.jsx') < 0) return;
+                        var button = document.createElement("input");
+                        button.type = "button";
+                        button.className = "btn";
+                        button.value = file;
+                        button.onclick = function () {
+                            callScript(scriptPath + '/' + file);
+                        };
+                        container.appendChild(button);
+                        container.appendChild(document.createElement("br"));
+                    });
+                });
+            }
+
+            function init() {
+                // 获取当前 HTML 文件的绝对路径
+                const currentDir = decodeURIComponent(window.location.href)
+                    .replace(/^file:\/\/\//, '') // 移除文件协议
+                    .split('/').slice(0, -1).join('/'); // 获取父目录
+
+                // 构建相对路径
+                const fixedScriptPath = currentDir + '/jsx';
+                createButton(fixedScriptPath);
+            }
+
+            init();
+        })();
+
+    </script>
+</html>
