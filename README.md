@@ -3,7 +3,7 @@ TextGrid的Auditio标记工具
 
 把文件放入【例如：C:\Program Files\Adobe\Adobe Audition 2024\CEP\extensions】文件夹中，然后在扩展中启用
 
-![image-20260424041300350](img\image-20260424041300350.png)
+<img src="img\image-20260424041300350.png" alt="image-20260424041300350" style="zoom: 90%;" />
 
 界面概览：
 
