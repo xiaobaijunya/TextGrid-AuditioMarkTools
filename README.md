@@ -16,3 +16,9 @@ TextGrid的Auditio标记工具
 **1.只读写textgrid的phones的标签，其他层会被清空！！！请一定注意这一点**，如果需要读取其他层请自己修改代码29-36行实现
 
 2.重命名音素功能，读取CSV的音素列，然后给手动创造的标签批量修改命名，CSV命名为【transcriptions.csv】，放在音频的文件夹即可，CSV格式请参考：[关于训练新模型时transcriptions.csv的问题 ·秋桥/SOFA ·讨论#5](https://github.com/qiuqiao/SOFA/discussions/5)
+
+### 重建words层：generate_words_from_phones.py的使用
+
+```
+python generate_words_from_phones.py --tg tgpath --dictionary dicpath --overwrite
+```
