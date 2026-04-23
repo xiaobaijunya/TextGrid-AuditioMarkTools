@@ -9,7 +9,7 @@ TextGrid的Auditio标记工具
 
 <img src="img\image-20260424041046885.png" alt="image-20260424041046885" style="zoom: 33%;" />
 
-使用概览：<img src="C:\Users\13393\Downloads\img\QQ20260424-042801.gif" alt="QQ20260424-042801"  />
+使用概览：<img src="img\QQ20260424-042801.gif" alt="QQ20260424-042801"  />
 
 ## 注意：
 
