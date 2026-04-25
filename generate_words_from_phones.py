@@ -1,7 +1,6 @@
 import pathlib
 import click
 import textgrid
-import tqdm
 
 
 class TrieNode:
@@ -69,9 +68,13 @@ def generate_words_from_phones(tg, dictionary, out, overwrite):
     for p in ['AP', 'SP', 'EP']:
         trie.insert([p], p)
 
-    for tgfile in tqdm.tqdm(tg_path_in.glob('*.TextGrid')):
-        tg = textgrid.TextGrid()
-        tg.read(str(tgfile))
+    for tgfile in tg_path_in.glob('*.TextGrid'):
+        try:
+            tg = textgrid.TextGrid()
+            tg.read(str(tgfile))
+        except Exception as e:
+            print(f'Error reading {tgfile.name}: {e}')
+            continue
 
         phones_tier = tg[1]  # phones tier
         new_words_tier = textgrid.IntervalTier(name='words')
@@ -119,6 +122,14 @@ def generate_words_from_phones(tg, dictionary, out, overwrite):
             continue
 
         tg.write(str(tg_file_out))
+
+        tg_verify = textgrid.TextGrid()
+        tg_verify.read(str(tg_file_out))
+        words_tier = tg_verify[0]
+        empty_marks = [interval for interval in words_tier if not interval.mark or interval.mark.strip() == '']
+        if empty_marks:
+            print(f'Warning: {tgfile.name} has {len(empty_marks)} empty marks in words tier after writing')
+
         print(f'Processed {tgfile.name}')
 
 
